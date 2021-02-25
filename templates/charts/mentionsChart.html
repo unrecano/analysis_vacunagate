@@ -1,0 +1,22 @@
+<canvas id="mentions" width="300" height="300"></canvas>
+<script type="text/javascript">
+    {% autoescape false %}
+    var mentionsLabels = {{ mentions.labels }};
+    var mentionsData = {{ mentions.data }};
+    {% endautoescape %}
+    var ctx = document.getElementById('mentions').getContext('2d');
+    var mentionsDataset = {
+        label: 'Número de veces que se menciona un perfil de Twitter.',
+        data: mentionsData,
+        borderWidth: 2,
+        hoverBorderWidth: 0
+    };
+    var myBarChartMentions = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: mentionsLabels,
+            datasets: [mentionsDataset]
+        },
+        options: {}
+    });
+</script>

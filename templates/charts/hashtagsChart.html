@@ -1,0 +1,22 @@
+<canvas id="hashtags" width="300" height="300"></canvas>
+<script type="text/javascript">
+    {% autoescape false %}
+    var hashtagsLabels = {{ hashtags.labels }};
+    var hashtagsData = {{ hashtags.data }};
+    {% endautoescape %}
+    var ctx = document.getElementById('hashtags').getContext('2d');
+    var hashtagsDataset = {
+        label: 'Número de veces que se menciona un hashtag.',
+        data: hashtagsData,
+        borderWidth: 2,
+        hoverBorderWidth: 0
+    };
+    var myBarChartHashtags = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: hashtagsLabels,
+            datasets: [hashtagsDataset]
+        },
+        options: {}
+    });
+</script>

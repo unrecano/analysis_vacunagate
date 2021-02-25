@@ -1,0 +1,22 @@
+<canvas id="words" width="300" height="300"></canvas>
+<script type="text/javascript">
+    {% autoescape false %}
+    var wordsLabels = {{ words.labels }};
+    var wordsData = {{ words.data }};
+    {% endautoescape %}
+    var ctx = document.getElementById('words').getContext('2d');
+    var wordsDataset = {
+        label: 'Número de veces que se mencionan las palabras.',
+        data: wordsData,
+        borderWidth: 2,
+        hoverBorderWidth: 0
+    };
+    var myBarChartWords = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: wordsLabels,
+            datasets: [wordsDataset]
+        },
+        options: {}
+    });
+</script>

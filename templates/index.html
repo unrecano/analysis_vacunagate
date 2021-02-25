@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Vacunagate BOT</title>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="flex items-center justify-between flex-wrap bg-red-500 p-6">
+  <div class="flex items-center flex-shrink-0 text-white mr-6">
+    <span class="font-bold text-xl tracking-tight">Vacunagate BOT</span>
+  </div>
+</nav>
+<div class="container px-8 mt-8 min-h-screen lg:mx-auto lg:mx-4">
+    <h1 class="text-4xl font-extrabold tracking-wider text-red-600">¿De qué habla la gente en el <span class="text-blue-600">#vacunagate</span>?</h1>
+    <br><br>
+    <p class="text-sm font-light tracking-wider text-gray-600">Fueron analizados: {{ count }} tweets al día de hoy.</p>
+    <br>
+    <h2 class="text-3xl font-semibold tracking-wider text-red-400">Perfiles mencionados</h2>
+    {% with mentions=mentions %}
+        {% include "charts/mentionsChart.html" %}
+    {% endwith %}
+    <br>
+    <h2 class="text-3xl font-semibold tracking-wider text-red-400">Hashtags mencionados</h2>
+    {% with hashtags=hashtags %}
+        {% include "charts/hashtagsChart.html" %}
+    {% endwith %}
+    <br>
+    <h2 class="text-3xl font-semibold tracking-wider text-red-400">Palabras mencionadas</h2>
+    {% with words=words %}
+        {% include "charts/wordsChart.html" %}
+    {% endwith %}
+</div>
+<footer class="bg-red-500 text-white px-2 pt-0 pb-2 mt-0 font-mono">
+  <div class="container mx-auto py-8">
+    <div class="flex flex-col mb-2 px-4 items-center">
+      <div class="text-base font-medium">Hecho con &#9829; por <a href="https://github.com/unrecano">@unrecano</a></div>
+      <div class="flex text-sm font-light">
+        <a href="https://github.com/unrecano/kirana-web" target="blank">&#183; github</a>
+        <a href="https://gitlab.com/unrecano/kirana-web" target="blank">&#183; gitlab</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
