@@ -39,6 +39,15 @@
     {% with locations=locations %}
         {% include "charts/locationsChart.html" %}
     {% endwith %}
+    <br><br>
+    <h1 class="text-4xl font-extrabold tracking-wider text-red-600">¿Cuánto se publicó por día sobre el <span class="text-blue-600">#vacunagate</span>?</h1>
+    <br><br>
+    <p class="text-sm font-light tracking-wider text-gray-600">Fueron analizados: {{ count }} tweets al día de hoy.</p>
+    <br>
+    <h2 class="text-3xl font-semibold tracking-wider text-red-400">Lugares desde donde se publicó</h2>
+    {% with dates=dates %}
+        {% include "charts/datesChart.html" %}
+    {% endwith %}
 </div>
 <br><br>
 <footer class="bg-red-500 text-white px-2 pt-0 pb-2 mt-0 font-mono">

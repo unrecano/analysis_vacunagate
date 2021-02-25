@@ -16,6 +16,10 @@ def get_all_locations():
     with open('files/locations.json', 'r') as f:
         return json.load(f)
 
+def get_all_dates():
+    with open('files/dates.json', 'r') as f:
+        return json.load(f)
+
 def get_info():
     with open('files/info.json', 'r') as f:
         return json.load(f)['count']

@@ -51,8 +51,14 @@ def get_all_hashtags(text):
         "data": [t[1] for t in frequencies]}
 
 def get_all_locations(text):
-    locations = regexp_tokenize(text.lower(), '^\w+')
+    locations = text.split("\n")
     frequencies = get_frequencies(locations, 50)
+    return {"labels": [t[0] for t in frequencies],
+        "data": [t[1] for t in frequencies]}
+
+def get_all_dates(text):
+    dates = text.split("\n")
+    frequencies = get_frequencies(dates)
     return {"labels": [t[0] for t in frequencies],
         "data": [t[1] for t in frequencies]}
 
@@ -70,6 +76,9 @@ def get_all_text(tweets):
 def get_locations(tweets):
     return "\n".join([t["user_location"] for t in tweets])
 
+def get_dates(tweets):
+    return "\n".join([t["created_at"].split(" ")[0] for t in tweets])
+
 if __name__ == "__main__":
     tweets = get_tweets()
     text = get_all_text(tweets)
@@ -78,6 +87,8 @@ if __name__ == "__main__":
     mentions = get_all_mentions(text)
     locations_text = get_locations(tweets)
     locations = get_all_locations(locations_text)
+    dates_text = get_dates(tweets)
+    dates = get_all_dates(dates_text)
 
     with open('files/words.json', 'w') as f:
         json.dump(words, f, indent=2)
@@ -90,6 +101,9 @@ if __name__ == "__main__":
 
     with open('files/mentions.json', 'w') as f:
         json.dump(mentions, f, indent=2)
+    
+    with open('files/dates.json', 'w') as f:
+        json.dump(dates, f, indent=2)
     
     with open('files/info.json', 'w') as f:
         json.dump({"count": db.tweets.count_documents({})}, f, indent=2)

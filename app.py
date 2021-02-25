@@ -10,6 +10,7 @@ def index():
         "mentions": services.get_all_mentions(),
         "words": services.get_all_words(),
         "locations": services.get_all_locations(),
+        "dates": services.get_all_dates(),
         "count": services.get_info()
     }
     return render_template("index.html", **context)
