@@ -9,6 +9,7 @@ def index():
         "hashtags": services.get_all_hashtags(),
         "mentions": services.get_all_mentions(),
         "words": services.get_all_words(),
+        "locations": services.get_all_locations(),
         "count": services.get_info()
     }
     return render_template("index.html", **context)

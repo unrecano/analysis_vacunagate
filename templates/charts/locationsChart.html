@@ -1,0 +1,22 @@
+<canvas id="locations" width="300" height="300"></canvas>
+<script type="text/javascript">
+    {% autoescape false %}
+    var locationsLabels = {{ locations.labels }};
+    var locationsData = {{ locations.data }};
+    {% endautoescape %}
+    var ctx = document.getElementById('locations').getContext('2d');
+    var locationsDataset = {
+        label: 'Número desde donde se publicó.',
+        data: locationsData,
+        borderWidth: 2,
+        hoverBorderWidth: 0
+    };
+    var myBarChartlocations = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: locationsLabels,
+            datasets: [locationsDataset]
+        },
+        options: {}
+    });
+</script>

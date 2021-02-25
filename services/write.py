@@ -3,6 +3,7 @@ import os
 from string import digits, ascii_letters, punctuation
 from dotenv import load_dotenv
 from nltk.corpus import stopwords
+from nltk.corpus.reader import twitter
 from nltk.probability import FreqDist
 from nltk.tokenize import regexp_tokenize
 from pymongo import MongoClient
@@ -49,16 +50,25 @@ def get_all_hashtags(text):
     return {"labels": [t[0] for t in frequencies],
         "data": [t[1] for t in frequencies]}
 
+def get_all_locations(text):
+    locations = regexp_tokenize(text.lower(), '^\w+')
+    frequencies = get_frequencies(locations, 50)
+    return {"labels": [t[0] for t in frequencies],
+        "data": [t[1] for t in frequencies]}
+
 # Connect to MongoDB
 client = MongoClient(MONGO_URI)
 db = client.vacunagates
 
 def get_tweets():
     collection = db.tweets
-    return collection.find({})
+    return list(collection.find({}))
 
 def get_all_text(tweets):
     return "\n".join([t["text"] for t in tweets])
+
+def get_locations(tweets):
+    return "\n".join([t["user_location"] for t in tweets])
 
 if __name__ == "__main__":
     tweets = get_tweets()
@@ -66,9 +76,14 @@ if __name__ == "__main__":
     words = get_all_words(text)
     hashtags = get_all_hashtags(text)
     mentions = get_all_mentions(text)
+    locations_text = get_locations(tweets)
+    locations = get_all_locations(locations_text)
 
     with open('files/words.json', 'w') as f:
         json.dump(words, f, indent=2)
+    
+    with open('files/locations.json', 'w') as f:
+        json.dump(locations, f, indent=2)
 
     with open('files/hashtags.json', 'w') as f:
         json.dump(hashtags, f, indent=2)
